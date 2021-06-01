@@ -1,5 +1,6 @@
 package me.hooker.utils;
 
+import android.content.ComponentName;
 import android.content.Intent;
 import android.util.Log;
 
@@ -9,8 +10,6 @@ import java.lang.reflect.Method;
 
 class MockSingleton implements InvocationHandler {
 
-    // 替身StubService的包名
-    private static final String stubPackage = "jianqiang.com.activityhook1";
 
     Object mBase;
 
@@ -42,12 +41,11 @@ class MockSingleton implements InvocationHandler {
 
                 logi("invoke startService rawIntent: " + rawIntent);
 
-                String rawServiceName = rawIntent.getComponent().getClassName();
+                ComponentName ct = rawIntent.getComponent();
+                String rawServiceName = ct.getClassName();
 //                String stubServiceName = UPFApplication.pluginServices.get(rawServiceName);
                 logi("invoke startService rawServiceName: " + rawServiceName);
 //                logi("invoke startService stubServiceName: " + stubServiceName);
-
-                logi("invoke startService stubPackage: " + stubPackage);
 
 //                // replace Plugin Service of StubService
 //                ComponentName componentName = new ComponentName(stubPackage, stubServiceName);
@@ -56,6 +54,26 @@ class MockSingleton implements InvocationHandler {
 //
 //                // Replace Intent, cheat AMS
 //                args[index] = newIntent;
+
+                // 替换成声明了的。能打开，但是不会回调114
+                // 即handleMessage [114] { when=-4ms
+                //                          what=114 obj=
+                //                          CreateServiceData
+                    //                          {token=android.os.BinderProxy@f720f4d
+                    //                              className=me.hooker.servie.DefineService
+                    //                              packageName=me.hooker intent=null
+                    //                           }
+                //                           target=android.app.ActivityThread$H
+                //                           }
+                if (rawServiceName.equals("me.hooker.servie.NoDefineService")) {
+                    ComponentName componentName = new ComponentName(ct.getPackageName(), "me.hooker.servie.DefineService");
+                    Intent newIntent = new Intent();
+                    newIntent.setComponent(componentName);
+                    logi("invoke startService newIntent: " + newIntent);
+
+                    // Replace Intent, cheat AMS
+                    args[index] = newIntent;
+                }
 
                 logd("hook startService success");
                 return method.invoke(mBase, args);
@@ -73,8 +91,11 @@ class MockSingleton implements InvocationHandler {
                 }
 
 //                //get StubService form UPFApplication.pluginServices
-//                Intent rawIntent = (Intent) args[index];
-//                String rawServiceName = rawIntent.getComponent().getClassName();
+                Intent rawIntent = (Intent) args[index];
+
+                logi("invoke stopService rawIntent: " + rawIntent);
+
+                String rawServiceName = rawIntent.getComponent().getClassName();
 //                String stubServiceName = UPFApplication.pluginServices.get(rawServiceName);
 //
 //                // replace Plugin Service of StubService
