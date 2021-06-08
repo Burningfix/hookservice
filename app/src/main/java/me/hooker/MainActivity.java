@@ -70,10 +70,10 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case R.id.btnStartNodefineService:
                     logd("点击开启未定义的服务");
-//                    startService(noDefine);
-                    Intent vx = new Intent(MainActivity.this, DefineService.class);
-                    vx.putExtra("JUMP", 1);
-                    startService(vx);
+                    startService(noDefine);
+//                    Intent vx = new Intent(MainActivity.this, DefineService.class);
+//                    vx.putExtra("JUMP", 1);
+//                    startService(vx);
                     break;
                 case R.id.btnStopNodefineService:
                     logd("点击停止未定义的服务");

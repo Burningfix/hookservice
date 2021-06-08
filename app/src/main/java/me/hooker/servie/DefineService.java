@@ -15,7 +15,7 @@ public class DefineService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        logi("Service is created");
+        logi("Service is created context:" + getBaseContext());
     }
 
     @Override

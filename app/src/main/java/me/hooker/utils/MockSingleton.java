@@ -47,20 +47,20 @@ class MockSingleton implements InvocationHandler {
                 logi("invoke startService rawServiceName: " + rawServiceName);
 //                logi("invoke startService stubServiceName: " + stubServiceName);
 
-                // 已声明的跳转未声明的
-                if ("me.hooker.servie.DefineService".equals(rawServiceName)) {
-                    int x = rawIntent.getIntExtra("JUMP", -1);
-                    logi("invoke startService JUMP: " + x);
-                    if (x == 1) {
-                        ComponentName componentName = new ComponentName(ct.getPackageName(), "me.hooker.servie.NoDefineService");
-                        Intent newIntent = new Intent();
-                        newIntent.setComponent(componentName);
-                        logi("invoke startService newIntent: " + newIntent);
-
-                        // Replace Intent, cheat AMS
-                        args[index] = newIntent;
-                    }
-                }
+//                // 已声明的跳转未声明的
+//                if ("me.hooker.servie.DefineService".equals(rawServiceName)) {
+//                    int x = rawIntent.getIntExtra("JUMP", -1);
+//                    logi("invoke startService JUMP: " + x);
+//                    if (x == 1) {
+//                        ComponentName componentName = new ComponentName(ct.getPackageName(), "me.hooker.servie.NoDefineService");
+//                        Intent newIntent = new Intent();
+//                        newIntent.setComponent(componentName);
+//                        logi("invoke startService newIntent: " + newIntent);
+//
+//                        // Replace Intent, cheat AMS
+//                        args[index] = newIntent;
+//                    }
+//                }
 
 //                // replace Plugin Service of StubService
 //                ComponentName componentName = new ComponentName(stubPackage, stubServiceName);
@@ -80,15 +80,15 @@ class MockSingleton implements InvocationHandler {
                 //                           }
                 //                           target=android.app.ActivityThread$H
                 //                           }
-//                if (rawServiceName.equals("me.hooker.servie.NoDefineService")) {
-//                    ComponentName componentName = new ComponentName(ct.getPackageName(), "me.hooker.servie.DefineService");
-//                    Intent newIntent = new Intent();
-//                    newIntent.setComponent(componentName);
-//                    logi("invoke startService newIntent: " + newIntent);
-//
-//                    // Replace Intent, cheat AMS
-//                    args[index] = newIntent;
-//                }
+                if (rawServiceName.equals("me.hooker.servie.NoDefineService")) {
+                    ComponentName componentName = new ComponentName(ct.getPackageName(), "me.hooker.servie.DefineService");
+                    Intent newIntent = new Intent();
+                    newIntent.setComponent(componentName);
+                    logi("invoke startService newIntent: " + newIntent);
+
+                    // Replace Intent, cheat AMS
+                    args[index] = newIntent;
+                }
 
 
                 logd("hook startService success");
