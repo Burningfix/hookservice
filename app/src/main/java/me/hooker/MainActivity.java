@@ -1,5 +1,6 @@
 package me.hooker;
 
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -9,23 +10,15 @@ import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
 
-import androidx.appcompat.app.AppCompatActivity;
 
-import me.hooker.servie.DefineService;
-import me.hooker.servie.NoDefineService;
-import me.hooker.utils.AMSHookHelper;
+import me.hooker.servie.ProxyService;
+import me.hooker.servie.TargetService;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(newBase);
-        try {
-            AMSHookHelper.hookAMN();
-            AMSHookHelper.hookActivityThread();
-        } catch (Throwable e) {
-            loge(Log.getStackTraceString(e));
-        }
     }
 
     @Override
@@ -49,8 +42,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClick(View view) {
         try {
-            Intent define = new Intent(MainActivity.this, DefineService.class);
-            Intent noDefine = new Intent(MainActivity.this, NoDefineService.class);
+            Intent define = new Intent(MainActivity.this, ProxyService.class);
+            Intent noDefine = new Intent(MainActivity.this, TargetService.class);
             switch (view.getId()) {
                 case R.id.btnStartDefineService:
                     logd("点击开启定义的服务");
@@ -71,9 +64,6 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.btnStartNodefineService:
                     logd("点击开启未定义的服务");
 //                    startService(noDefine);
-                    Intent vx = new Intent(MainActivity.this, DefineService.class);
-                    vx.putExtra("JUMP", 1);
-                    startService(vx);
                     break;
                 case R.id.btnStopNodefineService:
                     logd("点击停止未定义的服务");
