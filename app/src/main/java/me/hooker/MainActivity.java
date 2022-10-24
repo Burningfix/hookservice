@@ -8,14 +8,12 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
-
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.Activity;
 import me.hooker.servie.DefineService;
 import me.hooker.servie.NoDefineService;
 import me.hooker.utils.AMSHookHelper;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     @Override
     protected void attachBaseContext(Context newBase) {
