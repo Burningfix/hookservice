@@ -20,7 +20,7 @@ class MockSingleton implements InvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
-        logi(method.toString());
+        logi("====invoke==="+method.toString());
 
         try {
             if ("startService".equals(method.getName())) {

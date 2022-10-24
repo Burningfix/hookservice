@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:text="测试不声明打开服务" />
+
+    <Button
+        android:id="@+id/btnStartDefineService"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="dStart" />
+
+
+    <Button
+        android:id="@+id/btnStopDefineService"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="dStop" />
+
+
+    <Button
+        android:id="@+id/btnBindDefineService"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="dBind" />
+
+    <Button
+
+        android:id="@+id/btnUnbindDefineService"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="dUnbind" />
+
+    <Button
+        android:id="@+id/btnStartNodefineService"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="ndStart" />
+
+    <Button
+
+        android:id="@+id/btnStopNodefineService"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="ndStop" />
+
+
+    <Button
+
+        android:id="@+id/btnBindNodefineService"
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="ndBind" />
+
+    <Button
+
+        android:id="@+id/btnUnbindNodefineService"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="ndUnbind" />
+
+</LinearLayout>
